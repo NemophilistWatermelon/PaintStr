@@ -1,0 +1,137 @@
+<meta charset="utf-8" />
+<style>
+    body,
+    div {
+        margin: 0;
+        padding: 0;
+    }
+
+    #view {
+        width: 50%;
+        height: 100%;
+        border: 1px solid;
+    }
+
+    #console {
+        width: 74%;
+    }
+
+    span {
+        font-size: 0;
+    }
+</style>
+
+<body>
+    <div id="view">
+        <div id="console">
+            输出区域
+        </div>
+    </div>
+    <div id="view1">
+        <span>送你一颗小心心</span>
+    </div>
+    <div class="view2">
+        <div class="l"></div>
+        <div class="r"></div>
+    </div>
+</body>
+
+
+<script>
+    var log = console.log.bind(console);
+    var dir = console.dir.bind(console);
+    class LoopText {
+        constructor(dom_id, cssText) {
+            this.dom_id = dom_id;
+            this.cssTxt = cssText;
+        }
+        // 静态方法 将原始 new Class() => Class.new
+        static new(dom_id, cssText) {
+            return new this(dom_id, cssText);
+        }
+        init(cssTxt) {
+            var array = this.forLoopAdd(cssTxt);
+            this.insert(array);
+        }
+        rigisCSS() {
+            var id = this.dom_id;
+            var domId = document.querySelector(id);
+            this.domId = domId;
+            return this.domId
+        }
+        createStyle() {
+            var s = document.createElement('style');
+            document.body.insertBefore(s, null)
+            return s;
+        }
+        insert(array) {
+            var dom = this.rigisCSS();
+            var style = this.createStyle();
+            var i = 0;
+            const runer = function() {
+                style.innerHTML += array[i];
+                var str = array[i] + array[i + 1]
+                var str_1 = '}'
+                if (str == '*/' || array[i] === str_1) {
+                    dom.innerHTML += array[i] += '<br />';
+                } else {
+                    dom.innerHTML += array[i];
+                }
+                i += 1;
+                if (array[i] === undefined) {
+                    return;
+                }
+                setTimeout(runer, 1000 / 60);
+            }
+            runer();
+
+        }
+        forLoopAdd(cssText) {
+            var array = [];
+            var c = cssText;
+            for (let k of c) {
+
+                array.push(k);
+            }
+
+            return array;
+        }
+    }
+</script>
+<script >
+
+    var temp = document.body.innerHTML
+
+    var l = LoopText.new('#view', temp);
+    l.init(temp);
+</script>
+
+<!-- <script>
+    class nemo {
+        constructor(nemo) {
+            this.name = nemo;
+        }
+        static new(nemo) {
+            return new this(nemo);
+        }
+        hello() {
+            log('hello ' + this.name)
+        }
+    }
+
+    var i = nemo.new('Kevin')
+    i.hello();
+    class HelloPerson extends nemo {
+        constructor(age) {
+            super(nemo)
+            this.age = age
+        }
+        static new(nemo) {
+            return new this(nemo);
+        }
+        hello() {
+            log(`my age is ${this.age}`)
+        }
+    }
+    var i = HelloPerson.new('kevin').hello();
+</script> -->
